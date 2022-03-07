@@ -1,5 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
+import 'login_screen.dart';
+import 'signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -16,7 +19,7 @@ class WelcomeScreen extends StatelessWidget {
       );
     }
 
-    Text buildText(String blockName) {
+    Text buildTitleText(String blockName) {
       return Text(
         blockName,
         style: const TextStyle(
@@ -28,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
       );
     }
 
-    Text buildSubText(String subText) {
+    Text buildSubTitleText(String subText) {
       return Text(
         subText,
         style: const TextStyle(
@@ -50,38 +53,44 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildText("Eat."),
-                  buildText("Sleep."),
-                  buildText("Repeat."),
-                  buildSubText("The one and only meal prep and recipe app for busy students like us."),
+                  buildTitleText("Eat."),
+                  buildTitleText("Sleep."),
+                  buildTitleText("Repeat."),
+                  buildSubTitleText("The one and only meal prep and recipe app for busy students like us."),
                 ],
               ),
             ),
-            Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: const Text("Login"),
-                      style: ElevatedButton.styleFrom(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      log("Login button pressed");
+                      Navigator.of(context)
+                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (Route<dynamic> route) => false);
+                    },
+                    child: const Text("Login"),
+                    style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: const Color.fromRGBO(165, 207, 247, 1.0),
+                      onPrimary: Colors.black
+                    )
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      log("Sign Up button pressed");
+                      Navigator.of(context)
+                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignupScreen()), (Route<dynamic> route) => false);
+                    },
+                    child: const Text("Sign Up"),
+                    style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
-                        primary: const Color.fromRGBO(165, 207, 247, 1.0),
-                        onPrimary: Colors.black
-                      )
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: const Text("Sign Up"),
-                      style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          primary: const Color.fromRGBO(6, 32, 69, 1.0),
-                          onPrimary: Colors.white
-                      )
-                  ),
-                ],
-              ),
+                        primary: const Color.fromRGBO(6, 32, 69, 1.0),
+                        onPrimary: Colors.white
+                    )
+                ),
+              ],
             )
           ],
         ),
