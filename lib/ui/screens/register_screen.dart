@@ -1,20 +1,20 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:foodie/ui/screens/signup_screen.dart';
 import 'package:foodie/ui/screens/welcome_screen.dart';
+
 import '../util/inputs.dart';
-import 'register_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
 
-  const RegisterScreen({Key? key}) : super(key: key);
-
+  const LoginScreen({Key? key}) : super(key: key);
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  late String email, password, confirmPassword;
+class _LoginScreenState extends State<LoginScreen> {
+  late String email, password;
   String? emailError, passwordError;
 
   @override
@@ -22,7 +22,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.initState();
     email = "";
     password = "";
-    confirmPassword = "";
 
     emailError = null;
     passwordError = null;
@@ -49,15 +48,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       isValid = false;
     }
 
-    if (password.isEmpty || confirmPassword.isEmpty) {
+    if (password.isEmpty) {
       setState(() {
         passwordError = "Please enter a password";
-      });
-      isValid = false;
-    }
-    if (password != confirmPassword) {
-      setState(() {
-        passwordError = "Passwords do not match";
       });
       isValid = false;
     }
@@ -85,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             SizedBox(height: screenHeight * .12),
             const Text(
-              "Create Account,",
+              "Welcome,",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -93,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             SizedBox(height: screenHeight * .01),
             Text(
-              "Sign up to get started!",
+              "Sign in to continue!",
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black.withOpacity(.6),
@@ -119,43 +112,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   password = value;
                 });
               },
+              onSubmitted: (val) => submit(),
               labelText: "Password",
               errorText: passwordError,
               obscureText: true,
               textInputAction: TextInputAction.next,
             ),
-            SizedBox(height: screenHeight * .025),
-            InputField(
-              onChanged: (value) {
-                setState(() {
-                  confirmPassword = value;
-                });
-              },
-              onSubmitted: (value) => submit(),
-              labelText: "Confirm Password",
-              errorText: passwordError,
-              obscureText: true,
-              textInputAction: TextInputAction.done,
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: screenHeight * .075,
             ),
             FormButton(
-              text: "Sign Up",
+              text: "Log In",
               onPressed: submit,
             ),
             SizedBox(
-              height: screenHeight * .125,
+              height: screenHeight * .15,
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const RegisterScreen(),
+                ),
+              ),
               child: RichText(
                 text: const TextSpan(
-                  text: "I'm already a member, ",
+                  text: "I'm a new user, ",
                   style: TextStyle(color: Colors.black),
                   children: [
                     TextSpan(
-                      text: "Sign In",
+                      text: "Sign Up",
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -166,6 +164,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FormButton extends StatelessWidget {
+  final String text;
+  final Function? onPressed;
+  const FormButton({this.text = "", this.onPressed, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return ElevatedButton(
+      onPressed: onPressed as void Function()?,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16),
+      ),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: screenHeight * .02),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
     );

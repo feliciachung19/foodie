@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+import 'register_screen.dart';
 import 'signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -81,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       log("Sign Up button pressed");
                       Navigator.of(context)
-                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignupScreen()), (Route<dynamic> route) => false);
+                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const RegisterScreen()), (Route<dynamic> route) => false);
                     },
                     child: const Text("Sign Up"),
                     style: ElevatedButton.styleFrom(
