@@ -1,19 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:foodie/ui/screens/signup_screen.dart';
 import 'package:foodie/ui/screens/welcome_screen.dart';
-
 import '../util/inputs.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   late String email, password;
   String? emailError, passwordError;
 
@@ -70,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Padding(
@@ -78,18 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             SizedBox(height: screenHeight * .12),
             const Text(
-              "Welcome,",
+              "Sign Up",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: screenHeight * .01),
-            Text(
-              "Sign in to continue!",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black.withOpacity(.6),
               ),
             ),
             SizedBox(height: screenHeight * .12),
@@ -115,81 +106,35 @@ class _LoginScreenState extends State<LoginScreen> {
               onSubmitted: (val) => submit(),
               labelText: "Password",
               errorText: passwordError,
-              obscureText: true,
+              obscureText: false,
               textInputAction: TextInputAction.next,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    color: Colors.black,
+            SizedBox(
+              height: screenHeight * .025,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: screenWidth * 0.45,
+                  child: FormButton(
+                    text: "Back",
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const WelcomeScreen()), (route) => false);
+                    },
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * .075,
-            ),
-            FormButton(
-              text: "Log In",
-              onPressed: submit,
-            ),
-            SizedBox(
-              height: screenHeight * .15,
-            ),
-            TextButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const RegisterScreen(),
+                SizedBox(
+                  width: screenWidth * 0.45,
+                  child: FormButton(
+                    text: "Next",
+                    onPressed: submit,
+                  ),
                 ),
-              ),
-              child: RichText(
-                text: const TextSpan(
-                  text: "I'm a new user, ",
-                  style: TextStyle(color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: "Sign Up",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ],
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class FormButton extends StatelessWidget {
-  final String text;
-  final Function? onPressed;
-  const FormButton({this.text = "", this.onPressed, Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    return ElevatedButton(
-      onPressed: onPressed as void Function()?,
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 16),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: screenHeight * .02),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
         ),
       ),
     );

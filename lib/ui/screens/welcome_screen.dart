@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 
+import 'login_screen.dart';
 import 'register_screen.dart';
-import 'signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
         child: ListView(
           children: [
             Container(
-              padding: EdgeInsets.all(75),
+              padding: const EdgeInsets.all(75),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       log("Login button pressed");
                       Navigator.of(context)
-                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (Route<dynamic> route) => false);
+                          .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
                     },
                     child: const Text("Login"),
                     style: ElevatedButton.styleFrom(
@@ -81,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () {
                       log("Sign Up button pressed");
                       Navigator.of(context)
-                          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const RegisterScreen()), (Route<dynamic> route) => false);
+                          .push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
                     },
                     child: const Text("Sign Up"),
                     style: ElevatedButton.styleFrom(
