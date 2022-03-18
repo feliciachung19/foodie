@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:foodie/ui/screens/SimpleEcommerce.dart';
 import 'package:foodie/ui/screens/welcome_screen.dart';
 import '../util/inputs.dart';
 
@@ -61,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       log("[Database info] Email Entered: " + email);
       log("[Database info] Password Entered: " + password);
       Navigator.of(context)
-          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const WelcomeScreen()), (Route<dynamic> route) => false);
+          .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SimpleEcommerce()), (Route<dynamic> route) => false);
     }
   }
 
